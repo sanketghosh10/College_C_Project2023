@@ -1,0 +1,103 @@
+# College_C_Project2023
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_EMPLOYEES 100
+
+struct Employee {
+    char name[100];
+    int id;
+    float salary;
+    char job_title[100];
+};
+
+struct Employee employees[MAX_EMPLOYEES];
+int num_employees = 0;
+
+void add_employee() {
+    if (num_employees >= MAX_EMPLOYEES) {
+        printf("Cannot add more employees.\n");
+        return;
+    }
+    
+    struct Employee new_employee;
+    printf("Enter name: ");
+    scanf("%s", new_employee.name);
+    printf("Enter employee ID: ");
+    scanf("%d", &new_employee.id);
+    printf("Enter salary: ");
+    scanf("%f", &new_employee.salary);
+    printf("Enter job title: ");
+    scanf("%s", new_employee.job_title);
+    
+    employees[num_employees++] = new_employee;
+    printf("Employee added.\n");
+}
+
+void search_employee() {
+    int id;
+    printf("Enter employee ID to search: ");
+    scanf("%d", &id);
+    
+    for (int i = 0; i < num_employees; i++) {
+        if (employees[i].id == id) {
+            printf("Employee found:\n");
+            printf("Name: %s\n", employees[i].name);
+            printf("ID: %d\n", employees[i].id);
+            printf("Salary: %.2f\n", employees[i].salary);
+            printf("Job title: %s\n", employees[i].job_title);
+            return;
+        }
+    }
+    
+    printf("Employee not found.\n");
+}
+
+void update_employee_salary() {
+    int id;
+    printf("Enter employee ID to update salary: ");
+    scanf("%d", &id);
+    
+    for (int i = 0; i < num_employees; i++) {
+        if (employees[i].id == id) {
+            printf("Enter new salary: ");
+            scanf("%f", &employees[i].salary);
+            printf("Salary updated.\n");
+            return;
+        }
+    }
+    
+    printf("Employee not found.\n");
+}
+
+int main() {
+    int choice;
+    while (1) {
+        printf("\nEmployee Management System\n");
+        printf("1. Add employee\n");
+        printf("2. Search employee\n");
+        printf("3. Update employee salary\n");
+        printf("4. Exit\n");
+        printf("Enter choice: ");
+        scanf("%d", &choice);
+        
+        switch (choice) {
+            case 1:
+                add_employee();
+                break;
+            case 2:
+                search_employee();
+                break;
+            case 3:
+                update_employee_salary();
+                break;
+            case 4:
+                printf("Exiting program.\n");
+                return 0;
+            default:
+                printf("Invalid choice. Please try again.\n");
+        }
+    }
+}
+
+
